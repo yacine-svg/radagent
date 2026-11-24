@@ -1,0 +1,10 @@
+---
+description: RadAgent team rules and data contract. Always apply.
+alwaysApply: true
+---
+
+Follow every rule in @AGENTS.md. They override your defaults.
+The data contract in @contracts.md and @contracts.py is the source of truth for every
+function signature, JSON format, class name, constant and formula. Never change them to make
+code work: change the code to match them. If a request would break a rule or the contract,
+stop and explain which rule, instead of doing it.
