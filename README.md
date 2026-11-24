@@ -56,6 +56,17 @@ pip install -r requirements.txt
 cp .env.example .env                   # then fill in your Groq key and model names
 ```
 
+## Run
+
+```bash
+python -m servers.warm_cache        # once, online: PubMed cache for the offline demo
+streamlit run app/streamlit_app.py  # the app (demo cases in the sidebar)
+python -m agents.graph              # the 3 example cases in the terminal, checked against the contract
+python -m pytest tests -q           # all tests
+```
+
+The report is written by the LLM (Groq) when `GROQ_API_KEY` is set in `.env`, with a deterministic template as fallback. The image agent switches from its stand-in to the real model as soon as `ml/vision.py` exists.
+
 ## Team
 
 | Role | Person | Owns |
