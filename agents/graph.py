@@ -4,26 +4,46 @@
             ├─ text_agent ──────┼─ fusion ─ critic ─┬──────────── explainer
             └─ knowledge_agent ─┘                   └─ abstain ──┘
 
-B1 status: image/text/knowledge agents are FAKES (agents/fake_agents.py, data from examples/).
-Router, fusion, critic, abstain and the template explainer are real.
+Agents (B3): knowledge and text agents are real (MCP servers). The image agent is real as soon as
+ml/vision.py exists (A2); until then it is the fake one. RADAGENT_FAKE=1 forces all three fakes.
 
 Run:  python -m agents.graph                 # the 3 example cases, validated against the contract
       python -m agents.graph --case abstain  # one case
       python -m agents.graph --sequential    # without LangGraph (same node order)
+      python -m agents.graph --fake          # fake agents only (no MCP servers)
 """
 from __future__ import annotations
 
 import argparse
+import asyncio
+import importlib.util
+import inspect
 import json
+import os
 import sys
 
+from agents import fake_agents
 from agents.router import router
-from agents.fake_agents import image_agent, text_agent, knowledge_agent   # B3: swap for the real agents
 from agents.fusion import fusion
 from agents.critic import critic
 from agents.explainer import abstain, explainer
 
-PARALLEL = [("image_agent", image_agent), ("text_agent", text_agent), ("knowledge_agent", knowledge_agent)]
+
+
+def select_agents(fake: bool | None = None) -> list:
+    """[(name, node)] for the 3 parallel agents: real where possible, fake otherwise."""
+    if fake is None:
+        fake = os.environ.get("RADAGENT_FAKE") == "1"
+    if fake:
+        return [("image_agent", fake_agents.image_agent), ("text_agent", fake_agents.text_agent),
+                ("knowledge_agent", fake_agents.knowledge_agent)]
+    from agents import real_agents
+    has_vision = importlib.util.find_spec("ml.vision") is not None
+    return [("image_agent", real_agents.image_agent if has_vision else fake_agents.image_agent),
+            ("text_agent", real_agents.text_agent), ("knowledge_agent", real_agents.knowledge_agent)]
+
+
+PARALLEL = select_agents()
 
 
 def build_graph():
@@ -57,29 +77,38 @@ def _merge(state: dict, update: dict) -> dict:
     return out
 
 
-def run_sequential(inputs: dict) -> dict:
+async def _call(fn, state):
+    out = fn(state)
+    return await out if inspect.isawaitable(out) else out
+
+
+async def arun_sequential(inputs: dict) -> dict:
     """Same nodes, same order, no LangGraph. Used by CI and as a debugging fallback."""
-    state = _merge({"trace": []}, router(inputs))
-    after_router = dict(state)
-    for _, fn in PARALLEL:                  # each agent sees the state right after the router
-        state = _merge(state, fn(after_router))
-    state = _merge(state, fusion(state))
-    state = _merge(state, critic(state))
+    state = _merge({"trace": []}, await _call(router, inputs))
+    after_router = dict(state)              # each agent sees the state right after the router
+    for update in await asyncio.gather(*(_call(fn, after_router) for _, fn in PARALLEL)):
+        state = _merge(state, update)
+    state = _merge(state, await _call(fusion, state))
+    state = _merge(state, await _call(critic, state))
     if state["decision"] == "abstain":
-        state = _merge(state, abstain(state))
-    return _merge(state, explainer(state))
+        state = _merge(state, await _call(abstain, state))
+    return _merge(state, await _call(explainer, state))
 
 
-_APP = None
+async def arun(inputs: dict, sequential: bool = False) -> dict:
+    """Run one case (async). The app and the CLI use this."""
+    if sequential:
+        return await arun_sequential(inputs)
+    return await build_graph().ainvoke(inputs)
 
 
 def run(inputs: dict, sequential: bool = False) -> dict:
-    global _APP
-    if sequential:
-        return run_sequential(inputs)
-    if _APP is None:
-        _APP = build_graph()
-    return _APP.invoke(inputs)
+    """Blocking wrapper around arun()."""
+    return asyncio.run(arun(inputs, sequential))
+
+
+def run_sequential(inputs: dict) -> dict:
+    return asyncio.run(arun_sequential(inputs))
 
 
 # ------------------------------------------------------------------ CLI
@@ -97,8 +126,12 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Run RadAgent on the example cases.")
     ap.add_argument("--case", choices=[*CASES, "all"], default="all")
     ap.add_argument("--sequential", action="store_true", help="run without LangGraph")
+    ap.add_argument("--fake", action="store_true", help="fake agents only (no MCP servers)")
     ap.add_argument("--show-report", action="store_true")
     args = ap.parse_args(argv)
+    global PARALLEL
+    PARALLEL = select_agents(fake=True if args.fake else None)
+    print("agents:", ", ".join(f"{n}={'fake' if fn.__module__.endswith('fake_agents') else 'real'}" for n, fn in PARALLEL))
 
     ok = True
     for case in (CASES if args.case == "all" else [args.case]):
