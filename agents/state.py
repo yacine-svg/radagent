@@ -1,7 +1,8 @@
 """LangGraph state — mirrors contracts.FinalState (dicts inside, validated with contracts.py).
 
 Who writes what (each key has ONE writer, except `trace`, which every node appends to):
-  router          -> case_id (if missing), flags, trace
+  router          -> contract_version, case_id (generated if missing), image_path, text,
+                     patient_id (normalised), flags, trace
   image_agent     -> image_result, trace
   text_agent      -> text_result, patient, trace
   knowledge_agent -> knowledge, trace
