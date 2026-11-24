@@ -1,0 +1,31 @@
+# Install PyTorch first (CPU build is enough for the laptop):
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+
+# Person A — models and evaluation
+torchxrayvision
+grad-cam
+scikit-learn
+scikit-image
+pandas
+numpy
+matplotlib
+joblib
+tqdm
+tabulate
+
+# LLM
+groq
+python-dotenv
+
+# Person B — agents, MCP, app
+langgraph
+langchain-core
+langchain-mcp-adapters
+mcp[cli]
+httpx
+rank-bm25
+streamlit
+
+# shared
+pydantic>=2
+pytest

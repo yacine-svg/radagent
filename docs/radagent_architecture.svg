@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" font-family="Inter, DejaVu Sans, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#D97706"/>
+    </marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#DC2626"/>
+    </marker>
+    <marker id="arrP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#9333EA"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="900" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="40" y="52" font-size="28" font-weight="700" fill="#0F172A">RadAgent — Agentic assistant for medical image analysis</text>
+  <text x="40" y="80" font-size="14" fill="#64748B">Thème 3 · Système agentique d'aide à l'analyse d'images médicales — prototype d'aide à l'analyse, pas un système de diagnostic autonome</text>
+
+  <!-- ===== Inputs ===== -->
+  <text x="40" y="232" font-size="12" font-weight="700" fill="#64748B" letter-spacing="1.5">INPUTS</text>
+  <rect x="40" y="245" width="200" height="90" rx="12" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5"/>
+  <text x="140" y="280" font-size="16" font-weight="700" fill="#0F172A" text-anchor="middle">Chest X-ray</text>
+  <text x="140" y="302" font-size="12" fill="#475569" text-anchor="middle">PNG · DICOM</text>
+  <text x="140" y="319" font-size="12" fill="#475569" text-anchor="middle">resized 224×224</text>
+
+  <rect x="40" y="385" width="200" height="100" rx="12" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5"/>
+  <text x="140" y="418" font-size="16" font-weight="700" fill="#0F172A" text-anchor="middle">Clinical text</text>
+  <text x="140" y="440" font-size="12" fill="#475569" text-anchor="middle">indication · history</text>
+  <text x="140" y="457" font-size="12" fill="#475569" text-anchor="middle">symptoms</text>
+  <text x="140" y="474" font-size="12" fill="#475569" text-anchor="middle">or a full report</text>
+
+  <!-- ===== Orchestrator ===== -->
+  <rect x="280" y="110" width="990" height="540" rx="18" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="304" y="142" font-size="13" font-weight="700" fill="#334155" letter-spacing="1.5">ORCHESTRATOR · LangGraph state graph</text>
+  <rect x="955" y="124" width="295" height="28" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="1102" y="143" font-size="12" fill="#334155" text-anchor="middle">LLM: Llama 3 via Groq · structured JSON outputs</text>
+
+  <!-- Router -->
+  <rect x="320" y="321" width="130" height="80" rx="12" fill="#EEF2FF" stroke="#6366F1" stroke-width="1.5"/>
+  <text x="385" y="352" font-size="15" font-weight="700" fill="#1E1B4B" text-anchor="middle">Router</text>
+  <text x="385" y="372" font-size="11.5" fill="#475569" text-anchor="middle">validates inputs,</text>
+  <text x="385" y="388" font-size="11.5" fill="#475569" text-anchor="middle">plans agent calls</text>
+
+  <!-- Inputs -> Router -->
+  <path d="M240,290 C285,290 280,350 318,352" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+  <path d="M240,435 C285,435 280,372 318,370" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Router -> agents -->
+  <path d="M450,350 C472,350 466,205 488,205" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+  <path d="M450,361 L488,361" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+  <path d="M450,372 C472,372 466,517 488,517" fill="none" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Lane 1: Image Agent + vision-server -->
+  <rect x="490" y="172" width="230" height="66" rx="12" fill="#E0E7FF" stroke="#4F46E5" stroke-width="1.5"/>
+  <text x="508" y="198" font-size="15" font-weight="700" fill="#1E1B4B">Image Agent</text>
+  <text x="508" y="219" font-size="11.5" fill="#475569">pathology probabilities</text>
+  <circle cx="700" cy="190" r="10" fill="#0D9488"/><text x="700" y="194.5" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle">A</text>
+
+  <line x1="605" y1="240" x2="605" y2="255" stroke="#D97706" stroke-width="2.2" stroke-dasharray="3 2"/>
+  <text x="614" y="252" font-size="10" font-weight="600" fill="#B45309">MCP</text>
+
+  <rect x="500" y="258" width="210" height="58" rx="10" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+  <text x="512" y="277" font-size="13" font-weight="700" fill="#78350F">vision-server</text>
+  <text x="512" y="293" font-size="11" font-family="DejaVu Sans Mono, monospace" fill="#92400E">classify_image() · gradcam()</text>
+  <text x="512" y="308" font-size="11" fill="#92400E">DenseNet-121 (torchxrayvision)</text>
+  <circle cx="692" cy="274" r="9" fill="#0D9488"/><text x="692" y="278" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">A</text>
+
+  <!-- Lane 2: Text Agent + patient-server -->
+  <rect x="490" y="328" width="230" height="66" rx="12" fill="#E0E7FF" stroke="#4F46E5" stroke-width="1.5"/>
+  <text x="508" y="354" font-size="15" font-weight="700" fill="#1E1B4B">Text Agent</text>
+  <text x="508" y="375" font-size="11.5" fill="#475569">entities + negation (NegEx)</text>
+  <circle cx="700" cy="346" r="10" fill="#0D9488"/><text x="700" y="350.5" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle">A</text>
+
+  <line x1="605" y1="396" x2="605" y2="411" stroke="#D97706" stroke-width="2.2" stroke-dasharray="3 2"/>
+  <text x="614" y="408" font-size="10" font-weight="600" fill="#B45309">MCP</text>
+
+  <rect x="500" y="414" width="210" height="58" rx="10" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+  <text x="512" y="433" font-size="13" font-weight="700" fill="#78350F">patient-server</text>
+  <text x="512" y="449" font-size="11" font-family="DejaVu Sans Mono, monospace" fill="#92400E">get_patient_history()</text>
+  <text x="512" y="464" font-size="11" fill="#92400E">synthetic records (SQLite)</text>
+  <circle cx="692" cy="430" r="9" fill="#4F46E5"/><text x="692" y="434" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">B</text>
+
+  <!-- Lane 3: Knowledge Agent + knowledge-server -->
+  <rect x="490" y="484" width="230" height="66" rx="12" fill="#E0E7FF" stroke="#4F46E5" stroke-width="1.5"/>
+  <text x="508" y="510" font-size="15" font-weight="700" fill="#1E1B4B">Knowledge Agent</text>
+  <text x="508" y="531" font-size="11.5" fill="#475569">evidence &amp; references</text>
+  <circle cx="700" cy="502" r="10" fill="#4F46E5"/><text x="700" y="506.5" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle">B</text>
+
+  <line x1="605" y1="552" x2="605" y2="567" stroke="#D97706" stroke-width="2.2" stroke-dasharray="3 2"/>
+  <text x="614" y="564" font-size="10" font-weight="600" fill="#B45309">MCP</text>
+
+  <rect x="500" y="570" width="210" height="58" rx="10" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
+  <text x="512" y="589" font-size="13" font-weight="700" fill="#78350F">knowledge-server</text>
+  <text x="512" y="605" font-size="11" font-family="DejaVu Sans Mono, monospace" fill="#92400E">search_pubmed() · icd10()</text>
+  <text x="512" y="620" font-size="11" fill="#92400E">+ guidelines RAG</text>
+  <circle cx="692" cy="586" r="9" fill="#4F46E5"/><text x="692" y="590" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">B</text>
+
+  <!-- Agents -> Fusion -->
+  <line x1="720" y1="205" x2="778" y2="205" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+  <line x1="720" y1="361" x2="778" y2="361" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+  <line x1="720" y1="517" x2="778" y2="517" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Fusion -->
+  <rect x="780" y="172" width="130" height="378" rx="12" fill="#F3E8FF" stroke="#9333EA" stroke-width="1.5"/>
+  <text x="845" y="330" font-size="16" font-weight="700" fill="#3B0764" text-anchor="middle">Fusion</text>
+  <text x="845" y="352" font-size="11.5" fill="#475569" text-anchor="middle">late fusion of</text>
+  <text x="845" y="368" font-size="11.5" fill="#475569" text-anchor="middle">calibrated probs</text>
+  <text x="845" y="392" font-size="11.5" fill="#475569" text-anchor="middle">image ⟷ text</text>
+  <text x="845" y="408" font-size="11.5" fill="#475569" text-anchor="middle">conflict detection</text>
+  <circle cx="890" cy="190" r="10" fill="#4F46E5"/><text x="890" y="194.5" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle">B</text>
+
+  <!-- Fusion -> Critic -->
+  <line x1="910" y1="361" x2="958" y2="361" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Critic -->
+  <rect x="960" y="316" width="130" height="90" rx="12" fill="#F3E8FF" stroke="#9333EA" stroke-width="1.5"/>
+  <text x="1025" y="343" font-size="15" font-weight="700" fill="#3B0764" text-anchor="middle">Critic / Safety</text>
+  <text x="1025" y="363" font-size="11.5" fill="#475569" text-anchor="middle">checks claims</text>
+  <text x="1025" y="379" font-size="11.5" fill="#475569" text-anchor="middle">against evidence,</text>
+  <text x="1025" y="395" font-size="11.5" fill="#475569" text-anchor="middle">confidence threshold</text>
+
+  <!-- re-check loop -->
+  <path d="M1025,316 V255 H912" fill="none" stroke="#9333EA" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arrP)"/>
+  <text x="968" y="247" font-size="11" font-weight="600" fill="#7E22CE" text-anchor="middle">re-check</text>
+
+  <!-- Critic -> Explainer -->
+  <line x1="1090" y1="361" x2="1128" y2="361" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="1109" y="352" font-size="10.5" fill="#475569" text-anchor="middle">ok</text>
+
+  <!-- Abstain -->
+  <line x1="1025" y1="406" x2="1025" y2="473" stroke="#DC2626" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arrR)"/>
+  <text x="1033" y="436" font-size="10.5" fill="#B91C1C">low confidence</text>
+  <text x="1033" y="450" font-size="10.5" fill="#B91C1C">or conflict</text>
+  <rect x="950" y="475" width="150" height="50" rx="25" fill="#FEE2E2" stroke="#DC2626" stroke-width="1.5"/>
+  <text x="1025" y="496" font-size="12" font-weight="700" fill="#7F1D1D" text-anchor="middle">Abstain</text>
+  <text x="1025" y="512" font-size="10.5" fill="#991B1B" text-anchor="middle">flag for clinician review</text>
+  <path d="M1100,500 H1190 V408" fill="none" stroke="#DC2626" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arrR)"/>
+
+  <!-- Explainer -->
+  <rect x="1130" y="316" width="120" height="90" rx="12" fill="#F3E8FF" stroke="#9333EA" stroke-width="1.5"/>
+  <text x="1190" y="343" font-size="15" font-weight="700" fill="#3B0764" text-anchor="middle">Explainer</text>
+  <text x="1190" y="363" font-size="11.5" fill="#475569" text-anchor="middle">structured report</text>
+  <text x="1190" y="379" font-size="11.5" fill="#475569" text-anchor="middle">grounded only in</text>
+  <text x="1190" y="395" font-size="11.5" fill="#475569" text-anchor="middle">agent evidence</text>
+
+  <!-- Explainer -> Output -->
+  <line x1="1250" y1="361" x2="1298" y2="361" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- ===== Output ===== -->
+  <text x="1300" y="160" font-size="12" font-weight="700" fill="#64748B" letter-spacing="1.5">OUTPUT</text>
+  <rect x="1300" y="172" width="260" height="378" rx="14" fill="#ECFDF5" stroke="#059669" stroke-width="1.5"/>
+  <text x="1320" y="202" font-size="16" font-weight="700" fill="#064E3B">Analysis report + UI</text>
+  <text x="1320" y="221" font-size="11.5" fill="#047857">Streamlit app (live agent trace)</text>
+  <circle cx="1540" cy="192" r="10" fill="#4F46E5"/><text x="1540" y="196.5" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle">B</text>
+  <g font-size="13" fill="#0F172A">
+    <circle cx="1326" cy="253" r="3.5" fill="#059669"/><text x="1338" y="257.5">Findings + calibrated probabilities</text>
+    <circle cx="1326" cy="285" r="3.5" fill="#059669"/><text x="1338" y="289.5">Grad-CAM heatmap overlay</text>
+    <circle cx="1326" cy="317" r="3.5" fill="#059669"/><text x="1338" y="321.5">Highlighted text evidence</text>
+    <circle cx="1326" cy="349" r="3.5" fill="#059669"/><text x="1338" y="353.5">PubMed citations (PMIDs)</text>
+    <circle cx="1326" cy="381" r="3.5" fill="#059669"/><text x="1338" y="385.5">Confidence &amp; conflict flags</text>
+    <circle cx="1326" cy="413" r="3.5" fill="#059669"/><text x="1338" y="417.5">Live agent trace</text>
+  </g>
+  <rect x="1316" y="470" width="228" height="62" rx="10" fill="#FFFFFF" stroke="#FCA5A5"/>
+  <text x="1430" y="495" font-size="12" font-weight="700" fill="#B91C1C" text-anchor="middle">Decision support only</text>
+  <text x="1430" y="513" font-size="11.5" fill="#991B1B" text-anchor="middle">not an autonomous diagnosis</text>
+
+  <!-- ===== Legend ===== -->
+  <line x1="40" y1="685" x2="1560" y2="685" stroke="#E2E8F0"/>
+  <g font-size="13" fill="#334155">
+    <circle cx="50" cy="716" r="10" fill="#0D9488"/><text x="50" y="720.5" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle">A</text>
+    <text x="68" y="721">Person A — Perception &amp; ML</text>
+
+    <circle cx="300" cy="716" r="10" fill="#4F46E5"/><text x="300" y="720.5" font-size="12" font-weight="700" fill="#FFF" text-anchor="middle">B</text>
+    <text x="318" y="721">Person B — Agentic &amp; Platform</text>
+
+    <rect x="560" y="706" width="22" height="20" rx="5" fill="#FEF3C7" stroke="#D97706"/>
+    <text x="592" y="721">MCP server (separate process, FastMCP)</text>
+
+    <line x1="880" y1="716" x2="920" y2="716" stroke="#D97706" stroke-width="2.2" stroke-dasharray="3 2"/>
+    <text x="930" y="721">MCP tool call</text>
+
+    <line x1="1050" y1="716" x2="1090" y2="716" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
+    <text x="1100" y="721">data flow</text>
+
+    <line x1="1200" y1="716" x2="1240" y2="716" stroke="#DC2626" stroke-width="1.6" stroke-dasharray="5 3"/>
+    <text x="1250" y="721">safety path</text>
+  </g>
+
+  <!-- ===== Stack & data ===== -->
+  <rect x="40" y="750" width="1520" height="110" rx="14" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <text x="64" y="782" font-size="12" font-weight="700" fill="#64748B" letter-spacing="1.5">STACK</text>
+  <text x="150" y="782" font-size="14" fill="#0F172A">PyTorch · torchxrayvision · Grad-CAM · scispaCy / BioClinicalBERT · LangGraph · MCP Python SDK (FastMCP) · Groq (Llama 3) · Streamlit</text>
+  <text x="64" y="814" font-size="12" font-weight="700" fill="#64748B" letter-spacing="1.5">DATA</text>
+  <text x="150" y="814" font-size="14" fill="#0F172A">Indiana University Chest X-ray collection (Open-i): paired images + reports · training on Kaggle GPU</text>
+  <text x="64" y="846" font-size="12" font-weight="700" fill="#64748B" letter-spacing="1.5">EVAL</text>
+  <text x="150" y="846" font-size="14" fill="#0F172A">AUC · F1 · sensitivity · calibration (ECE) · ablation: image only vs text only vs fused (text = indication only, to avoid leakage)</text>
+</svg>

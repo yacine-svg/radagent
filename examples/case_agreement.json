@@ -1,0 +1,331 @@
+{
+  "contract_version": "1.0",
+  "case_id": "demo-agreement",
+  "image_path": "data/demo/agreement.png",
+  "text": "62-year-old woman, shortness of breath, history of CHF",
+  "patient_id": "P007",
+  "flags": {
+    "has_text": true,
+    "has_patient": true,
+    "errors": []
+  },
+  "image_result": {
+    "findings": [
+      {
+        "label": "Cardiomegaly",
+        "prob": 0.82,
+        "above_threshold": true
+      },
+      {
+        "label": "Effusion",
+        "prob": 0.18,
+        "above_threshold": false
+      },
+      {
+        "label": "Atelectasis",
+        "prob": 0.22,
+        "above_threshold": false
+      },
+      {
+        "label": "Lung Opacity",
+        "prob": 0.31,
+        "above_threshold": false
+      },
+      {
+        "label": "Nodule",
+        "prob": 0.06,
+        "above_threshold": false
+      }
+    ],
+    "model": "densenet121-res224-all + isotonic",
+    "heatmaps": {
+      "Cardiomegaly": "outputs/demo-agreement/cam_Cardiomegaly.png"
+    },
+    "error": null
+  },
+  "text_result": {
+    "analyzed_text": "62-year-old woman, shortness of breath, history of CHF | Patient history: hypertension; congestive heart failure (2019)",
+    "entities": [
+      {
+        "text": "shortness of breath",
+        "type": "symptom",
+        "negated": false,
+        "span": [
+          19,
+          38
+        ]
+      },
+      {
+        "text": "history of CHF",
+        "type": "history",
+        "negated": false,
+        "span": [
+          40,
+          54
+        ]
+      },
+      {
+        "text": "congestive heart failure",
+        "type": "history",
+        "negated": false,
+        "span": [
+          88,
+          112
+        ]
+      }
+    ],
+    "suspected": {
+      "Cardiomegaly": "positive",
+      "Effusion": "absent",
+      "Atelectasis": "absent",
+      "Lung Opacity": "absent",
+      "Nodule": "absent"
+    },
+    "history_used": true,
+    "error": null
+  },
+  "patient": {
+    "patient_id": "P007",
+    "found": true,
+    "age": 62,
+    "sex": "F",
+    "smoker": false,
+    "history": [
+      "hypertension",
+      "congestive heart failure (2019)"
+    ],
+    "prior_studies": [
+      "Chest X-ray 2023: enlarged cardiac silhouette"
+    ]
+  },
+  "knowledge": {
+    "by_class": {
+      "Cardiomegaly": {
+        "icd10": {
+          "condition": "Cardiomegaly",
+          "code": "I51.7",
+          "label": "Cardiomegaly"
+        },
+        "refs": [
+          {
+            "pmid": "90000001",
+            "title": "EXAMPLE reference 1 for Cardiomegaly (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "90000002",
+            "title": "EXAMPLE reference 2 for Cardiomegaly (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Cardiothoracic ratio above 0.5 on a PA chest radiograph suggests cardiomegaly; confirm with echocardiography.",
+          "source": "https://radiopaedia.org/articles/cardiomegaly"
+        }
+      },
+      "Effusion": {
+        "icd10": {
+          "condition": "Effusion",
+          "code": "J90",
+          "label": "Pleural effusion, not elsewhere classified"
+        },
+        "refs": [
+          {
+            "pmid": "91000001",
+            "title": "EXAMPLE reference 1 for Effusion (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "91000002",
+            "title": "EXAMPLE reference 2 for Effusion (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Blunting of the costophrenic angle is the earliest frontal sign; ultrasound confirms small effusions.",
+          "source": "https://radiopaedia.org/articles/pleural-effusion"
+        }
+      },
+      "Atelectasis": {
+        "icd10": {
+          "condition": "Atelectasis",
+          "code": "J98.11",
+          "label": "Atelectasis"
+        },
+        "refs": [
+          {
+            "pmid": "92000001",
+            "title": "EXAMPLE reference 1 for Atelectasis (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "92000002",
+            "title": "EXAMPLE reference 2 for Atelectasis (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Volume loss with displacement of fissures or hila; often linear or plate-like opacities.",
+          "source": "https://radiopaedia.org/articles/atelectasis"
+        }
+      },
+      "Lung Opacity": {
+        "icd10": {
+          "condition": "Lung Opacity",
+          "code": "R91.8",
+          "label": "Other nonspecific abnormal finding of lung field"
+        },
+        "refs": [
+          {
+            "pmid": "93000001",
+            "title": "EXAMPLE reference 1 for Lung Opacity (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "93000002",
+            "title": "EXAMPLE reference 2 for Lung Opacity (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Nonspecific increased attenuation of lung parenchyma; correlate clinically and with prior imaging.",
+          "source": "https://radiopaedia.org/articles/airspace-opacification"
+        }
+      },
+      "Nodule": {
+        "icd10": {
+          "condition": "Nodule",
+          "code": "R91.1",
+          "label": "Solitary pulmonary nodule"
+        },
+        "refs": [
+          {
+            "pmid": "94000001",
+            "title": "EXAMPLE reference 1 for Nodule (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "94000002",
+            "title": "EXAMPLE reference 2 for Nodule (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Rounded opacity up to 3 cm; follow-up depends on size and risk factors.",
+          "source": "https://radiopaedia.org/articles/pulmonary-nodule"
+        }
+      }
+    },
+    "error": null
+  },
+  "fused": {
+    "findings": [
+      {
+        "label": "Cardiomegaly",
+        "p_image": 0.82,
+        "s_text": 1,
+        "p_fused": 0.9253,
+        "threshold": 0.48,
+        "above_threshold": true,
+        "conflict": null
+      },
+      {
+        "label": "Effusion",
+        "p_image": 0.18,
+        "s_text": 0,
+        "p_fused": 0.18,
+        "threshold": 0.42,
+        "above_threshold": false,
+        "conflict": null
+      },
+      {
+        "label": "Atelectasis",
+        "p_image": 0.22,
+        "s_text": 0,
+        "p_fused": 0.22,
+        "threshold": 0.38,
+        "above_threshold": false,
+        "conflict": null
+      },
+      {
+        "label": "Lung Opacity",
+        "p_image": 0.31,
+        "s_text": 0,
+        "p_fused": 0.31,
+        "threshold": 0.45,
+        "above_threshold": false,
+        "conflict": null
+      },
+      {
+        "label": "Nodule",
+        "p_image": 0.06,
+        "s_text": 0,
+        "p_fused": 0.06,
+        "threshold": 0.3,
+        "above_threshold": false,
+        "conflict": null
+      }
+    ],
+    "beta": 1.0
+  },
+  "decision": "ok",
+  "reasons": [],
+  "report_md": "## Résumé\nCardiomégalie probable (probabilité combinée 0.93), concordante entre l'image et le contexte clinique.\n\n## Observations image\nLe modèle image estime la cardiomégalie à 0.82 ; la carte Grad-CAM se concentre sur la silhouette cardiaque. Aucun autre signe au-dessus du seuil.\n\n## Éléments cliniques\nDyspnée et antécédent d'insuffisance cardiaque (CHF) cités dans la demande et l'historique patient.\n\n## Points de vigilance\nAucun conflit détecté. Une échocardiographie permet de confirmer (ICD-10 I51.7).\n\n## Références\n- PMID: 90000001\n\n## Avertissement\nAide à l'analyse uniquement — ne constitue pas un diagnostic médical.\n",
+  "citations": [
+    "90000001"
+  ],
+  "trace": [
+    {
+      "node": "router",
+      "message": "Inputs valid: image + clinical text + patient id",
+      "duration_ms": 3,
+      "tool": null
+    },
+    {
+      "node": "image_agent",
+      "message": "5 findings scored, Grad-CAM generated",
+      "duration_ms": 1840,
+      "tool": "vision-server.classify_image"
+    },
+    {
+      "node": "text_agent",
+      "message": "Entities extracted, negation checked (patient history added)",
+      "duration_ms": 920,
+      "tool": "patient-server.get_patient_history"
+    },
+    {
+      "node": "knowledge_agent",
+      "message": "ICD-10, references and guideline notes loaded for 5 classes",
+      "duration_ms": 410,
+      "tool": "knowledge-server.search_pubmed"
+    },
+    {
+      "node": "fusion",
+      "message": "Image and text combined (beta=1.0)",
+      "duration_ms": 2,
+      "tool": null
+    },
+    {
+      "node": "critic",
+      "message": "Decision: ok",
+      "duration_ms": 1,
+      "tool": null
+    },
+    {
+      "node": "explainer",
+      "message": "Report written and grounding checked",
+      "duration_ms": 1350,
+      "tool": null
+    }
+  ]
+}

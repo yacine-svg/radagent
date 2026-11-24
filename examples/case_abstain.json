@@ -1,0 +1,337 @@
+{
+  "contract_version": "1.0",
+  "case_id": "demo-abstain",
+  "image_path": "data/demo/abstain.png",
+  "text": "Dyspnea. No effusion on last ultrasound.",
+  "patient_id": "P999",
+  "flags": {
+    "has_text": true,
+    "has_patient": true,
+    "errors": []
+  },
+  "image_result": {
+    "findings": [
+      {
+        "label": "Cardiomegaly",
+        "prob": 0.52,
+        "above_threshold": true
+      },
+      {
+        "label": "Effusion",
+        "prob": 0.76,
+        "above_threshold": true
+      },
+      {
+        "label": "Atelectasis",
+        "prob": 0.44,
+        "above_threshold": true
+      },
+      {
+        "label": "Lung Opacity",
+        "prob": 0.47,
+        "above_threshold": true
+      },
+      {
+        "label": "Nodule",
+        "prob": 0.2,
+        "above_threshold": false
+      }
+    ],
+    "model": "densenet121-res224-all + isotonic",
+    "heatmaps": {
+      "Cardiomegaly": "outputs/demo-abstain/cam_Cardiomegaly.png",
+      "Effusion": "outputs/demo-abstain/cam_Effusion.png",
+      "Atelectasis": "outputs/demo-abstain/cam_Atelectasis.png",
+      "Lung Opacity": "outputs/demo-abstain/cam_Lung_Opacity.png"
+    },
+    "error": null
+  },
+  "text_result": {
+    "analyzed_text": "Dyspnea. No effusion on last ultrasound.",
+    "entities": [
+      {
+        "text": "Dyspnea",
+        "type": "symptom",
+        "negated": false,
+        "span": [
+          0,
+          7
+        ]
+      },
+      {
+        "text": "effusion",
+        "type": "finding",
+        "negated": true,
+        "span": [
+          12,
+          20
+        ]
+      }
+    ],
+    "suspected": {
+      "Cardiomegaly": "absent",
+      "Effusion": "negated",
+      "Atelectasis": "absent",
+      "Lung Opacity": "absent",
+      "Nodule": "absent"
+    },
+    "history_used": false,
+    "error": null
+  },
+  "patient": {
+    "patient_id": "P999",
+    "found": false
+  },
+  "knowledge": {
+    "by_class": {
+      "Cardiomegaly": {
+        "icd10": {
+          "condition": "Cardiomegaly",
+          "code": "I51.7",
+          "label": "Cardiomegaly"
+        },
+        "refs": [
+          {
+            "pmid": "90000001",
+            "title": "EXAMPLE reference 1 for Cardiomegaly (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "90000002",
+            "title": "EXAMPLE reference 2 for Cardiomegaly (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Cardiothoracic ratio above 0.5 on a PA chest radiograph suggests cardiomegaly; confirm with echocardiography.",
+          "source": "https://radiopaedia.org/articles/cardiomegaly"
+        }
+      },
+      "Effusion": {
+        "icd10": {
+          "condition": "Effusion",
+          "code": "J90",
+          "label": "Pleural effusion, not elsewhere classified"
+        },
+        "refs": [
+          {
+            "pmid": "91000001",
+            "title": "EXAMPLE reference 1 for Effusion (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "91000002",
+            "title": "EXAMPLE reference 2 for Effusion (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Blunting of the costophrenic angle is the earliest frontal sign; ultrasound confirms small effusions.",
+          "source": "https://radiopaedia.org/articles/pleural-effusion"
+        }
+      },
+      "Atelectasis": {
+        "icd10": {
+          "condition": "Atelectasis",
+          "code": "J98.11",
+          "label": "Atelectasis"
+        },
+        "refs": [
+          {
+            "pmid": "92000001",
+            "title": "EXAMPLE reference 1 for Atelectasis (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "92000002",
+            "title": "EXAMPLE reference 2 for Atelectasis (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Volume loss with displacement of fissures or hila; often linear or plate-like opacities.",
+          "source": "https://radiopaedia.org/articles/atelectasis"
+        }
+      },
+      "Lung Opacity": {
+        "icd10": {
+          "condition": "Lung Opacity",
+          "code": "R91.8",
+          "label": "Other nonspecific abnormal finding of lung field"
+        },
+        "refs": [
+          {
+            "pmid": "93000001",
+            "title": "EXAMPLE reference 1 for Lung Opacity (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "93000002",
+            "title": "EXAMPLE reference 2 for Lung Opacity (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Nonspecific increased attenuation of lung parenchyma; correlate clinically and with prior imaging.",
+          "source": "https://radiopaedia.org/articles/airspace-opacification"
+        }
+      },
+      "Nodule": {
+        "icd10": {
+          "condition": "Nodule",
+          "code": "R91.1",
+          "label": "Solitary pulmonary nodule"
+        },
+        "refs": [
+          {
+            "pmid": "94000001",
+            "title": "EXAMPLE reference 1 for Nodule (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "94000002",
+            "title": "EXAMPLE reference 2 for Nodule (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Rounded opacity up to 3 cm; follow-up depends on size and risk factors.",
+          "source": "https://radiopaedia.org/articles/pulmonary-nodule"
+        }
+      }
+    },
+    "error": null
+  },
+  "fused": {
+    "findings": [
+      {
+        "label": "Cardiomegaly",
+        "p_image": 0.52,
+        "s_text": 0,
+        "p_fused": 0.52,
+        "threshold": 0.48,
+        "above_threshold": true,
+        "conflict": null
+      },
+      {
+        "label": "Effusion",
+        "p_image": 0.76,
+        "s_text": -1,
+        "p_fused": 0.5381,
+        "threshold": 0.42,
+        "above_threshold": true,
+        "conflict": {
+          "type": "image_pos_text_neg",
+          "message": "Image suggests Effusion (p=0.76) but the clinical text says it is absent."
+        }
+      },
+      {
+        "label": "Atelectasis",
+        "p_image": 0.44,
+        "s_text": 0,
+        "p_fused": 0.44,
+        "threshold": 0.38,
+        "above_threshold": true,
+        "conflict": null
+      },
+      {
+        "label": "Lung Opacity",
+        "p_image": 0.47,
+        "s_text": 0,
+        "p_fused": 0.47,
+        "threshold": 0.45,
+        "above_threshold": true,
+        "conflict": null
+      },
+      {
+        "label": "Nodule",
+        "p_image": 0.2,
+        "s_text": 0,
+        "p_fused": 0.2,
+        "threshold": 0.3,
+        "above_threshold": false,
+        "conflict": null
+      }
+    ],
+    "beta": 1.0
+  },
+  "decision": "abstain",
+  "reasons": [
+    {
+      "code": "uncertain_conflict",
+      "severity": "abstain",
+      "label": "Effusion",
+      "message": "Image suggests Effusion (p=0.76) but the clinical text says it is absent. Combined probability 0.54 is in the uncertain band."
+    },
+    {
+      "code": "patient_not_found",
+      "severity": "info",
+      "label": null,
+      "message": "Patient P999 not found; no history used."
+    }
+  ],
+  "report_md": "## Résumé\nLe système ne conclut pas : les éléments disponibles sont insuffisants ou contradictoires. Relecture par un radiologue recommandée.\n\n## Observations image\nPlusieurs scores sont proches des seuils (cardiomégalie 0.52, atélectasie 0.44, opacité 0.47) ; épanchement à 0.76 selon l'image.\n\n## Éléments cliniques\nLe texte mentionne une dyspnée et l'absence d'épanchement à la dernière échographie.\n\n## Points de vigilance\nConflit image/texte sur l'épanchement avec une probabilité combinée incertaine (0.54).\n\n## Références\n- PMID: 91000001\n\n## Avertissement\nAide à l'analyse uniquement — ne constitue pas un diagnostic médical.\n",
+  "citations": [
+    "91000001"
+  ],
+  "trace": [
+    {
+      "node": "router",
+      "message": "Inputs valid: image + clinical text + patient id",
+      "duration_ms": 3,
+      "tool": null
+    },
+    {
+      "node": "image_agent",
+      "message": "5 findings scored, Grad-CAM generated",
+      "duration_ms": 1840,
+      "tool": "vision-server.classify_image"
+    },
+    {
+      "node": "text_agent",
+      "message": "Entities extracted, negation checked (patient history added)",
+      "duration_ms": 920,
+      "tool": "patient-server.get_patient_history"
+    },
+    {
+      "node": "knowledge_agent",
+      "message": "ICD-10, references and guideline notes loaded for 5 classes",
+      "duration_ms": 410,
+      "tool": "knowledge-server.search_pubmed"
+    },
+    {
+      "node": "fusion",
+      "message": "Image and text combined (beta=1.0)",
+      "duration_ms": 2,
+      "tool": null
+    },
+    {
+      "node": "critic",
+      "message": "Decision: abstain",
+      "duration_ms": 1,
+      "tool": null
+    },
+    {
+      "node": "abstain",
+      "message": "Insufficient or contradictory evidence: referred for clinician review",
+      "duration_ms": 1,
+      "tool": null
+    },
+    {
+      "node": "explainer",
+      "message": "Report written and grounding checked",
+      "duration_ms": 1350,
+      "tool": null
+    }
+  ]
+}

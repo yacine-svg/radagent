@@ -1,0 +1,21 @@
+# secrets
+.env
+
+# python
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# data and generated files
+data/raw/
+outputs/
+*.zip
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

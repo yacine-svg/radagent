@@ -1,0 +1,320 @@
+{
+  "contract_version": "1.0",
+  "case_id": "demo-conflict",
+  "image_path": "data/demo/conflict.png",
+  "text": "Follow-up. No pleural effusion on prior study. Cough.",
+  "patient_id": null,
+  "flags": {
+    "has_text": true,
+    "has_patient": false,
+    "errors": []
+  },
+  "image_result": {
+    "findings": [
+      {
+        "label": "Cardiomegaly",
+        "prob": 0.35,
+        "above_threshold": false
+      },
+      {
+        "label": "Effusion",
+        "prob": 0.9,
+        "above_threshold": true
+      },
+      {
+        "label": "Atelectasis",
+        "prob": 0.28,
+        "above_threshold": false
+      },
+      {
+        "label": "Lung Opacity",
+        "prob": 0.38,
+        "above_threshold": false
+      },
+      {
+        "label": "Nodule",
+        "prob": 0.12,
+        "above_threshold": false
+      }
+    ],
+    "model": "densenet121-res224-all + isotonic",
+    "heatmaps": {
+      "Effusion": "outputs/demo-conflict/cam_Effusion.png"
+    },
+    "error": null
+  },
+  "text_result": {
+    "analyzed_text": "Follow-up. No pleural effusion on prior study. Cough.",
+    "entities": [
+      {
+        "text": "pleural effusion",
+        "type": "finding",
+        "negated": true,
+        "span": [
+          14,
+          30
+        ]
+      },
+      {
+        "text": "Cough",
+        "type": "symptom",
+        "negated": false,
+        "span": [
+          47,
+          52
+        ]
+      }
+    ],
+    "suspected": {
+      "Cardiomegaly": "absent",
+      "Effusion": "negated",
+      "Atelectasis": "absent",
+      "Lung Opacity": "absent",
+      "Nodule": "absent"
+    },
+    "history_used": false,
+    "error": null
+  },
+  "patient": null,
+  "knowledge": {
+    "by_class": {
+      "Cardiomegaly": {
+        "icd10": {
+          "condition": "Cardiomegaly",
+          "code": "I51.7",
+          "label": "Cardiomegaly"
+        },
+        "refs": [
+          {
+            "pmid": "90000001",
+            "title": "EXAMPLE reference 1 for Cardiomegaly (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "90000002",
+            "title": "EXAMPLE reference 2 for Cardiomegaly (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Cardiothoracic ratio above 0.5 on a PA chest radiograph suggests cardiomegaly; confirm with echocardiography.",
+          "source": "https://radiopaedia.org/articles/cardiomegaly"
+        }
+      },
+      "Effusion": {
+        "icd10": {
+          "condition": "Effusion",
+          "code": "J90",
+          "label": "Pleural effusion, not elsewhere classified"
+        },
+        "refs": [
+          {
+            "pmid": "91000001",
+            "title": "EXAMPLE reference 1 for Effusion (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "91000002",
+            "title": "EXAMPLE reference 2 for Effusion (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Blunting of the costophrenic angle is the earliest frontal sign; ultrasound confirms small effusions.",
+          "source": "https://radiopaedia.org/articles/pleural-effusion"
+        }
+      },
+      "Atelectasis": {
+        "icd10": {
+          "condition": "Atelectasis",
+          "code": "J98.11",
+          "label": "Atelectasis"
+        },
+        "refs": [
+          {
+            "pmid": "92000001",
+            "title": "EXAMPLE reference 1 for Atelectasis (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "92000002",
+            "title": "EXAMPLE reference 2 for Atelectasis (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Volume loss with displacement of fissures or hila; often linear or plate-like opacities.",
+          "source": "https://radiopaedia.org/articles/atelectasis"
+        }
+      },
+      "Lung Opacity": {
+        "icd10": {
+          "condition": "Lung Opacity",
+          "code": "R91.8",
+          "label": "Other nonspecific abnormal finding of lung field"
+        },
+        "refs": [
+          {
+            "pmid": "93000001",
+            "title": "EXAMPLE reference 1 for Lung Opacity (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "93000002",
+            "title": "EXAMPLE reference 2 for Lung Opacity (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Nonspecific increased attenuation of lung parenchyma; correlate clinically and with prior imaging.",
+          "source": "https://radiopaedia.org/articles/airspace-opacification"
+        }
+      },
+      "Nodule": {
+        "icd10": {
+          "condition": "Nodule",
+          "code": "R91.1",
+          "label": "Solitary pulmonary nodule"
+        },
+        "refs": [
+          {
+            "pmid": "94000001",
+            "title": "EXAMPLE reference 1 for Nodule (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          },
+          {
+            "pmid": "94000002",
+            "title": "EXAMPLE reference 2 for Nodule (replaced by a real PubMed result at runtime)",
+            "journal": "Example Journal",
+            "year": "2024"
+          }
+        ],
+        "guideline": {
+          "text": "Rounded opacity up to 3 cm; follow-up depends on size and risk factors.",
+          "source": "https://radiopaedia.org/articles/pulmonary-nodule"
+        }
+      }
+    },
+    "error": null
+  },
+  "fused": {
+    "findings": [
+      {
+        "label": "Cardiomegaly",
+        "p_image": 0.35,
+        "s_text": 0,
+        "p_fused": 0.35,
+        "threshold": 0.48,
+        "above_threshold": false,
+        "conflict": null
+      },
+      {
+        "label": "Effusion",
+        "p_image": 0.9,
+        "s_text": -1,
+        "p_fused": 0.768,
+        "threshold": 0.42,
+        "above_threshold": true,
+        "conflict": {
+          "type": "image_pos_text_neg",
+          "message": "Image suggests Effusion (p=0.90) but the clinical text says it is absent."
+        }
+      },
+      {
+        "label": "Atelectasis",
+        "p_image": 0.28,
+        "s_text": 0,
+        "p_fused": 0.28,
+        "threshold": 0.38,
+        "above_threshold": false,
+        "conflict": null
+      },
+      {
+        "label": "Lung Opacity",
+        "p_image": 0.38,
+        "s_text": 0,
+        "p_fused": 0.38,
+        "threshold": 0.45,
+        "above_threshold": false,
+        "conflict": null
+      },
+      {
+        "label": "Nodule",
+        "p_image": 0.12,
+        "s_text": 0,
+        "p_fused": 0.12,
+        "threshold": 0.3,
+        "above_threshold": false,
+        "conflict": null
+      }
+    ],
+    "beta": 1.0
+  },
+  "decision": "ok",
+  "reasons": [
+    {
+      "code": "conflict",
+      "severity": "warning",
+      "label": "Effusion",
+      "message": "Image suggests Effusion (p=0.90) but the clinical text says it is absent. Combined probability stays high (0.77)."
+    }
+  ],
+  "report_md": "## Résumé\nÉpanchement pleural probable (probabilité combinée 0.77) malgré un texte clinique qui le nie : à vérifier.\n\n## Observations image\nLe modèle image estime l'épanchement à 0.90 ; la carte Grad-CAM se concentre sur l'angle costo-diaphragmatique.\n\n## Éléments cliniques\nLe texte mentionne une toux et l'absence d'épanchement sur un examen antérieur.\n\n## Points de vigilance\nCONFLIT image/texte sur l'épanchement : l'état a pu évoluer depuis l'examen antérieur. Une échographie pleurale peut trancher (ICD-10 J90).\n\n## Références\n- PMID: 91000001\n- PMID: 91000002\n\n## Avertissement\nAide à l'analyse uniquement — ne constitue pas un diagnostic médical.\n",
+  "citations": [
+    "91000001",
+    "91000002"
+  ],
+  "trace": [
+    {
+      "node": "router",
+      "message": "Inputs valid: image + clinical text",
+      "duration_ms": 3,
+      "tool": null
+    },
+    {
+      "node": "image_agent",
+      "message": "5 findings scored, Grad-CAM generated",
+      "duration_ms": 1840,
+      "tool": "vision-server.classify_image"
+    },
+    {
+      "node": "text_agent",
+      "message": "Entities extracted, negation checked",
+      "duration_ms": 920,
+      "tool": null
+    },
+    {
+      "node": "knowledge_agent",
+      "message": "ICD-10, references and guideline notes loaded for 5 classes",
+      "duration_ms": 410,
+      "tool": "knowledge-server.search_pubmed"
+    },
+    {
+      "node": "fusion",
+      "message": "Image and text combined (beta=1.0)",
+      "duration_ms": 2,
+      "tool": null
+    },
+    {
+      "node": "critic",
+      "message": "Decision: ok",
+      "duration_ms": 1,
+      "tool": null
+    },
+    {
+      "node": "explainer",
+      "message": "Report written and grounding checked",
+      "duration_ms": 1350,
+      "tool": null
+    }
+  ]
+}
