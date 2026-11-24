@@ -133,7 +133,7 @@ VisionPrediction + `heatmaps` + `error`:
 | knowledge-server | `icd10_lookup` | `condition: str` (a class name) | ICD10 (`code: null` if unknown) |
 | knowledge-server | `guideline_snippets` | `condition: str, k: int = 2` | list[GuidelineSnippet] |
 
-FastMCP sends results as JSON. On the client side, if a tool result arrives as a string, `json.loads` it, then validate it with the model above.
+Servers use the **MCP Python SDK v2** (`from mcp.server.mcpserver import MCPServer`; v1's `FastMCP` was renamed). Each tool is typed with the contract model, so the server publishes the contract's JSON schema and validates its own output. On the client side, always read results with `agents.mcp_client.tool_output(result)`: it unwraps lists (sent as `{"result": [...]}`) and raises on tool errors.
 
 **PatientRecord**: SYNTHETIC data only
 ```json

@@ -1,0 +1,6 @@
+condition,code,label
+Cardiomegaly,I51.7,Cardiomegaly
+Effusion,J90,"Pleural effusion, not elsewhere classified"
+Atelectasis,J98.11,Atelectasis
+Lung Opacity,R91.8,Other nonspecific abnormal finding of lung field
+Nodule,R91.1,Solitary pulmonary nodule
