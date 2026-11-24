@@ -6,7 +6,9 @@
 """
 from __future__ import annotations
 
+import importlib
 import json
+import os
 import sys
 from typing import Any
 
@@ -26,6 +28,14 @@ class ToolCallError(RuntimeError):
 def stdio(name: str) -> StdioServerParameters:
     """Launch one of our servers as a subprocess, with the repo root as working directory."""
     return StdioServerParameters(command=sys.executable, args=["-m", SERVER_MODULES[name]], cwd=str(ROOT))
+
+
+def target(name: str):
+    """What to connect to: a subprocess over stdio (the real app), or the server object itself
+    when RADAGENT_MCP=inprocess (tests: same code path, no subprocess, much faster)."""
+    if os.environ.get("RADAGENT_MCP") == "inprocess":
+        return importlib.import_module(SERVER_MODULES[name]).mcp
+    return stdio(name)
 
 
 def tool_output(result) -> Any:

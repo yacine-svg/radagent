@@ -1,6 +1,7 @@
-"""Graph tests (B). Run:  python -m pytest tests/test_graph.py -q
+"""Graph tests (B) with the FAKE agents. Run:  python -m pytest tests/test_graph.py -q
+(The real agents are tested in tests/test_real_agents.py.)
 
-The sequential runner needs only pydantic, so these run in CI.
+The sequential runner needs no LangGraph, so these run in CI.
 The LangGraph tests run when langgraph is installed (on your laptop).
 """
 import json
@@ -11,6 +12,12 @@ from agents import fake_agents
 from agents.graph import CASES, example_inputs, run_sequential
 
 EXPECTED = {"agreement": "ok", "conflict": "ok", "abstain": "abstain"}
+
+
+@pytest.fixture(autouse=True)
+def fake_agents_only(monkeypatch):
+    import agents.graph as G
+    monkeypatch.setattr(G, "PARALLEL", G.select_agents(fake=True))
 
 
 def check(final):
