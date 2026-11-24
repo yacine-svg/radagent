@@ -12,6 +12,7 @@ __pycache__/
 # data and generated files
 data/raw/
 outputs/
+data/patients.db        # rebuilt by data/make_patients.py
 *.zip
 
 # editors / OS

@@ -20,10 +20,8 @@ python-dotenv
 # Person B — agents, MCP, app
 langgraph
 langchain-core
-langchain-mcp-adapters
-mcp[cli]
+mcp>=2.3,<3              # MCP SDK v2 (MCPServer / Client); v1's FastMCP API no longer exists
 httpx
-rank-bm25
 streamlit
 
 # shared
