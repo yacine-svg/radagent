@@ -82,24 +82,38 @@ async def _call(fn, state):
     return await out if inspect.isawaitable(out) else out
 
 
-async def arun_sequential(inputs: dict) -> dict:
+async def arun_sequential(inputs: dict, on_update=None) -> dict:
     """Same nodes, same order, no LangGraph. Used by CI and as a debugging fallback."""
-    state = _merge({"trace": []}, await _call(router, inputs))
+    notify = on_update or (lambda node, update: None)
+
+    async def step(name, fn, state):
+        update = await _call(fn, state)
+        notify(name, update)
+        return update
+
+    state = _merge({"trace": []}, await step("router", router, inputs))
     after_router = dict(state)              # each agent sees the state right after the router
-    for update in await asyncio.gather(*(_call(fn, after_router) for _, fn in PARALLEL)):
+    for update in await asyncio.gather(*(step(n, fn, after_router) for n, fn in PARALLEL)):
         state = _merge(state, update)
-    state = _merge(state, await _call(fusion, state))
-    state = _merge(state, await _call(critic, state))
+    state = _merge(state, await step("fusion", fusion, state))
+    state = _merge(state, await step("critic", critic, state))
     if state["decision"] == "abstain":
-        state = _merge(state, await _call(abstain, state))
-    return _merge(state, await _call(explainer, state))
+        state = _merge(state, await step("abstain", abstain, state))
+    return _merge(state, await step("explainer", explainer, state))
 
 
-async def arun(inputs: dict, sequential: bool = False) -> dict:
-    """Run one case (async). The app and the CLI use this."""
+async def arun(inputs: dict, sequential: bool = False, on_update=None) -> dict:
+    """Run one case (async). on_update(node, update) is called after every node (live UI)."""
     if sequential:
-        return await arun_sequential(inputs)
-    return await build_graph().ainvoke(inputs)
+        return await arun_sequential(inputs, on_update)
+    final = None
+    async for mode, chunk in build_graph().astream(inputs, stream_mode=["updates", "values"]):
+        if mode == "updates" and on_update:
+            for node, update in chunk.items():
+                on_update(node, update or {})
+        elif mode == "values":
+            final = chunk
+    return final
 
 
 def run(inputs: dict, sequential: bool = False) -> dict:

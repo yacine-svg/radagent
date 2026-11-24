@@ -32,3 +32,14 @@ def get_patient_history(patient_id: str) -> dict:
     _, age, sex, smoker, history, prior = row
     return {"patient_id": pid, "found": True, "age": age, "sex": sex, "smoker": bool(smoker),
             "history": json.loads(history), "prior_studies": json.loads(prior)}
+
+
+def list_patient_ids() -> list[str]:
+    """All synthetic patient ids (for the app's selector)."""
+    try:
+        _ensure_db()
+        with sqlite3.connect(DB) as con:
+            return [r[0] for r in con.execute("SELECT patient_id FROM patients ORDER BY patient_id")]
+    except Exception as e:                                # noqa: BLE001
+        log.warning("cannot list patients: %s", e)
+        return []
