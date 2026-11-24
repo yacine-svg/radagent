@@ -56,6 +56,15 @@ pip install -r requirements.txt
 cp .env.example .env                   # then fill in your Groq key and model names
 ```
 
+## Team
+
+| Role | Person | Owns |
+|---|---|---|
+| A — Perception & ML | partner | `ml/`, `eval/`, `scripts/`, A's data files |
+| B — Agentic & Platform | [@yacine-svg](https://github.com/yacine-svg) | `agents/`, `servers/`, `app/`, B's data files |
+
+**Rules for both of us and for any AI assistant: [`AGENTS.md`](AGENTS.md).** Cursor loads them automatically (`.cursor/rules/radagent.mdc`); for ChatGPT or Claude chats, upload `AGENTS.md` + `contracts.md` at the start of the conversation.
+
 ## Team workflow
 
 - One branch per block (`a2-vision`, `b2-knowledge-server`), merged into `main` through a pull request.
