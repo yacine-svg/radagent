@@ -14,4 +14,4 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install "pydantic>=2" pytest
-      - run: python -m pytest tests/test_contracts.py -q
+      - run: python -m pytest tests -q
