@@ -23,7 +23,7 @@ except ImportError:
 
 import agents.graph as G                          # noqa: E402
 from app.render import (cited_refs, decision_banner, finding_label, highlight_html,  # noqa: E402
-                        trace_line)
+                        report_for_display, trace_line)
 from contracts import CONTRACT_VERSION, DISCLAIMER, FinalState  # noqa: E402
 from servers.patients import list_patient_ids    # noqa: E402
 
@@ -162,7 +162,7 @@ with right:
 
 st.divider()
 st.subheader("Report")
-st.markdown(final["report_md"])
+st.markdown(report_for_display(final["report_md"]))
 st.download_button("Download report (.md)", final["report_md"], file_name=f"{final['case_id']}_report.md",
                    mime="text/markdown")
 
