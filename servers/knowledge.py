@@ -101,7 +101,8 @@ def pubmed_query(condition: str) -> str:
     except Exception:                                     # noqa: BLE001
         title = str(condition)
     return (f'"{title}"[Title] AND (radiograph*[Title/Abstract] OR radiography[Title/Abstract] '
-            f'OR x-ray[Title/Abstract]) AND hasabstract NOT "case reports"[Publication Type]')
+            f'OR x-ray[Title/Abstract]) AND hasabstract NOT "case reports"[Publication Type] '
+            f'NOT (animals[MeSH Terms] NOT humans[MeSH Terms])')        # no animal-only studies
 
 
 # ------------------------------------------------------------------ ICD-10
