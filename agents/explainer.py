@@ -120,7 +120,8 @@ Tu reçois UNIQUEMENT un JSON de preuves produit par d'autres agents. Règles st
 4. Si "decision" vaut "ok" : le Résumé présente les constats avec "above_threshold": true comme « probables », avec leur probabilité combinée, ou dit qu'aucun constat ne dépasse les seuils. N'écris PAS que le système « ne conclut pas ».
    Si "decision" vaut "abstain" : le Résumé dit clairement que le système ne conclut pas, et pourquoi (d'après "reasons").
 5. Chaque élément de "reasons" (conflits, avertissements) apparaît dans « Points de vigilance », reformulé en français.
-6. Dans « Références », une ligne par référence fournie dans "references" : « - PMID: 12345678 — titre (journal, année) ». Aucun autre PMID.
+6. Dans « Références », une ligne par référence fournie dans "references" : « - PMID: 12345678 — titre (journal, année) », en omettant le journal ou l'année s'ils sont vides. Aucun autre PMID.
+6b. N'écris jamais les noms de champs du JSON (p_image, p_fused, s_text, above_threshold…) : écris « probabilité image », « probabilité combinée », « seuil ». Arrondis les probabilités à 2 décimales.
 7. La section « ## Avertissement » contient exactement cette phrase : {DISCLAIMER}
 8. Ton prudent : jamais de diagnostic définitif, pas de conseil de traitement."""
 
