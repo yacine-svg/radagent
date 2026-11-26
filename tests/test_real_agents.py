@@ -48,7 +48,7 @@ def real_agents_inprocess(monkeypatch, tmp_path):
     monkeypatch.setitem(sys.modules, "ml.vision", vision)
     monkeypatch.setattr(ml, "vision", vision, raising=False)
     # offline PubMed: a cache with 2 refs per class query
-    cache = {knowledge.PUBMED_QUERY.format(label=c): [
+    cache = {knowledge.pubmed_query(c): [
         {"pmid": f"7{i}{j}", "title": f"Test ref {j} about {c}", "journal": "J", "year": "2020"} for j in (1, 2)]
         for i, c in enumerate(CLASSES)}
     (tmp_path / "pubmed.json").write_text(json.dumps(cache))

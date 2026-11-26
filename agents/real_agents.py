@@ -18,7 +18,7 @@ from ml.labels import CLASSES
 from agents.common import ROOT, empty_text_result, event, root_cause, safe_node
 from agents.fake_agents import _image_failed, _knowledge_failed, _text_failed
 from agents.mcp_client import target, tool_output
-from servers.knowledge import PUBMED_QUERY
+from servers.knowledge import pubmed_query
 
 REFS_PER_CLASS = 2
 
@@ -102,7 +102,7 @@ async def knowledge_agent(state: dict) -> dict:
     async with Client(target("knowledge")) as c:
         for label in CLASSES:
             icd = tool_output(await c.call_tool("icd10_lookup", {"condition": label}))
-            refs = tool_output(await c.call_tool("search_pubmed", {"query": PUBMED_QUERY.format(label=label),
+            refs = tool_output(await c.call_tool("search_pubmed", {"query": pubmed_query(label),
                                                                    "max_results": REFS_PER_CLASS}))
             notes = tool_output(await c.call_tool("guideline_snippets", {"condition": label, "k": 1}))
             by_class[label] = {"icd10": icd, "refs": refs, "guideline": notes[0] if notes else None}

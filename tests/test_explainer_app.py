@@ -5,7 +5,7 @@ import pytest
 
 import agents.explainer as E
 import agents.graph as G
-from app.render import cited_refs, decision_banner, finding_label, highlight_html, trace_line
+from app.render import cited_refs, decision_banner, finding_label, highlight_html, report_for_display, trace_line
 from contracts import DISCLAIMER, REPORT_SECTIONS, FinalState
 
 
@@ -94,3 +94,9 @@ def test_render_helpers_on_a_real_run():
     assert all("⚠" in finding_label(f) for f in final["fused"]["findings"] if f["conflict"])
     assert {r["pmid"] for r in cited_refs(final)} == set(final["citations"])
     assert trace_line(final["trace"][0]).startswith("🧭 **router**")
+
+
+def test_report_for_display_shrinks_only_headings():
+    final = G.run_sequential(G.example_inputs("conflict"))
+    shown = report_for_display(final["report_md"])
+    assert "#### Résumé" in shown and "\n## " not in shown and DISCLAIMER in shown

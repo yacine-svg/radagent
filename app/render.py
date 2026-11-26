@@ -60,3 +60,8 @@ def decision_banner(final: dict) -> tuple[str, str]:
         return "error", "No conclusion: insufficient or contradictory evidence — referred for clinician review."
     positives = [f["label"] for f in (final.get("fused") or {}).get("findings", []) if f["above_threshold"]]
     return "success", ("Probable finding(s): " + ", ".join(positives)) if positives else "No finding above the decision thresholds."
+
+
+def report_for_display(report_md: str) -> str:
+    """Same report, smaller headings for the page (the stored report keeps the contract's '## ')."""
+    return "\n".join("#### " + line[3:] if line.startswith("## ") else line for line in report_md.splitlines())
