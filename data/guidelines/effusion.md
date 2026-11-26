@@ -1,4 +1,5 @@
 # Pleural effusion
+fr: Épanchement pleural
 aliases: effusion, pleural fluid, costophrenic angle blunting, meniscus sign
 source: https://radiopaedia.org/articles/pleural-effusion
 

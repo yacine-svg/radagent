@@ -1,4 +1,5 @@
 # Lung opacity
+fr: Opacité pulmonaire
 aliases: airspace opacification, consolidation, infiltrate, increased density, air bronchogram
 source: https://radiopaedia.org/articles/airspace-opacification
 

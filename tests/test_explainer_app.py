@@ -100,3 +100,9 @@ def test_report_for_display_shrinks_only_headings():
     final = G.run_sequential(G.example_inputs("conflict"))
     shown = report_for_display(final["report_md"])
     assert "#### Résumé" in shown and "\n## " not in shown and DISCLAIMER in shown
+
+
+def test_evidence_gives_french_names_from_the_notes():
+    ev = E.evidence(G.run_sequential(G.example_inputs("conflict")))
+    assert ev["names_fr"]["Effusion"] == "Épanchement pleural"
+    assert set(ev["names_fr"]) == {f["label"] for f in ev["findings"]}

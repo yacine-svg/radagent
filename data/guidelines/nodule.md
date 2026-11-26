@@ -1,4 +1,5 @@
 # Pulmonary nodule
+fr: Nodule pulmonaire
 aliases: lung nodule, solitary pulmonary nodule, coin lesion, granuloma
 source: https://radiopaedia.org/articles/pulmonary-nodule
 

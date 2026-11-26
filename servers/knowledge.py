@@ -130,6 +130,24 @@ STOP = set("a an and are as at be by can for from in into is it its may more of 
            "their this to up used when where which with without".split())
 
 
+def french_name(condition: str) -> str:
+    """French clinical name of a class, from the 'fr:' line of its guideline note (for the report)."""
+    try:
+        return _guideline_french().get(label_slug(str(condition)).lower(), str(condition))
+    except Exception:                                     # noqa: BLE001
+        return str(condition)
+
+
+@lru_cache(maxsize=1)
+def _guideline_french() -> dict[str, str]:
+    out = {}
+    for path in (DATA / "guidelines").glob("*.md"):
+        for line in path.read_text(encoding="utf-8").splitlines()[:5]:
+            if line.startswith("fr:"):
+                out[path.stem] = line.split(":", 1)[1].strip()
+    return out
+
+
 @lru_cache(maxsize=1)
 def _guideline_titles() -> dict[str, str]:
     out = {}
@@ -161,6 +179,8 @@ def _guideline_corpus() -> tuple[list[dict], dict[str, str]]:
                         aliases = line.split(":", 1)[1]
                     elif line.startswith("source:"):
                         source = line.split(":", 1)[1].strip()
+                    elif line.startswith("fr:"):
+                        aliases += " " + line.split(":", 1)[1]
             else:
                 body.append(" ".join(l.strip() for l in lines))
         queries[path.stem] = f"{title} {aliases}"
