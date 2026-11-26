@@ -36,8 +36,8 @@
   <!-- ===== Orchestrator ===== -->
   <rect x="280" y="110" width="990" height="540" rx="18" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
   <text x="304" y="142" font-size="13" font-weight="700" fill="#334155" letter-spacing="1.5">ORCHESTRATOR · LangGraph state graph</text>
-  <rect x="955" y="124" width="295" height="28" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
-  <text x="1102" y="143" font-size="12" fill="#334155" text-anchor="middle">LLM: Llama 3 via Groq · structured JSON outputs</text>
+  <rect x="890" y="124" width="362" height="28" rx="14" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="1071" y="143" font-size="12" fill="#334155" text-anchor="middle">LLM: gpt-oss-120b via Groq · grounded, checked outputs</text>
 
   <!-- Router -->
   <rect x="320" y="321" width="130" height="80" rx="12" fill="#EEF2FF" stroke="#6366F1" stroke-width="1.5"/>
@@ -95,8 +95,8 @@
 
   <rect x="500" y="570" width="210" height="58" rx="10" fill="#FEF3C7" stroke="#D97706" stroke-width="1.5"/>
   <text x="512" y="589" font-size="13" font-weight="700" fill="#78350F">knowledge-server</text>
-  <text x="512" y="605" font-size="11" font-family="DejaVu Sans Mono, monospace" fill="#92400E">search_pubmed() · icd10()</text>
-  <text x="512" y="620" font-size="11" fill="#92400E">+ guidelines RAG</text>
+  <text x="512" y="605" font-size="10" font-family="DejaVu Sans Mono, monospace" fill="#92400E">search_pubmed() · icd10_lookup()</text>
+  <text x="512" y="620" font-size="10" font-family="DejaVu Sans Mono, monospace" fill="#92400E">guideline_snippets() · BM25</text>
   <circle cx="692" cy="586" r="9" fill="#4F46E5"/><text x="692" y="590" font-size="11" font-weight="700" fill="#FFF" text-anchor="middle">B</text>
 
   <!-- Agents -> Fusion -->
@@ -122,10 +122,6 @@
   <text x="1025" y="363" font-size="11.5" fill="#475569" text-anchor="middle">checks claims</text>
   <text x="1025" y="379" font-size="11.5" fill="#475569" text-anchor="middle">against evidence,</text>
   <text x="1025" y="395" font-size="11.5" fill="#475569" text-anchor="middle">confidence threshold</text>
-
-  <!-- re-check loop -->
-  <path d="M1025,316 V255 H912" fill="none" stroke="#9333EA" stroke-width="1.6" stroke-dasharray="5 3" marker-end="url(#arrP)"/>
-  <text x="968" y="247" font-size="11" font-weight="600" fill="#7E22CE" text-anchor="middle">re-check</text>
 
   <!-- Critic -> Explainer -->
   <line x1="1090" y1="361" x2="1128" y2="361" stroke="#475569" stroke-width="1.8" marker-end="url(#arr)"/>
@@ -178,7 +174,7 @@
     <text x="318" y="721">Person B — Agentic &amp; Platform</text>
 
     <rect x="560" y="706" width="22" height="20" rx="5" fill="#FEF3C7" stroke="#D97706"/>
-    <text x="592" y="721">MCP server (separate process, FastMCP)</text>
+    <text x="592" y="721">MCP server (MCP SDK v2)</text>
 
     <line x1="880" y1="716" x2="920" y2="716" stroke="#D97706" stroke-width="2.2" stroke-dasharray="3 2"/>
     <text x="930" y="721">MCP tool call</text>
@@ -193,7 +189,7 @@
   <!-- ===== Stack & data ===== -->
   <rect x="40" y="750" width="1520" height="110" rx="14" fill="#F8FAFC" stroke="#E2E8F0"/>
   <text x="64" y="782" font-size="12" font-weight="700" fill="#64748B" letter-spacing="1.5">STACK</text>
-  <text x="150" y="782" font-size="14" fill="#0F172A">PyTorch · torchxrayvision · Grad-CAM · scispaCy / BioClinicalBERT · LangGraph · MCP Python SDK (FastMCP) · Groq (Llama 3) · Streamlit</text>
+  <text x="150" y="782" font-size="14" fill="#0F172A">PyTorch · torchxrayvision · Grad-CAM · LangGraph · MCP Python SDK v2 · Groq (gpt-oss-120b) · BM25 · SQLite · pydantic contract · Streamlit</text>
   <text x="64" y="814" font-size="12" font-weight="700" fill="#64748B" letter-spacing="1.5">DATA</text>
   <text x="150" y="814" font-size="14" fill="#0F172A">Indiana University Chest X-ray collection (Open-i): paired images + reports · training on Kaggle GPU</text>
   <text x="64" y="846" font-size="12" font-weight="700" fill="#64748B" letter-spacing="1.5">EVAL</text>
