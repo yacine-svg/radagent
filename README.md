@@ -67,6 +67,17 @@ python -m pytest tests -q           # all tests
 
 The report is written by the LLM (Groq) when `GROQ_API_KEY` is set in `.env`, with a deterministic template as fallback. The image agent switches from its stand-in to the real model as soon as `ml/vision.py` exists.
 
+### Run it in the browser (GitHub Codespaces)
+
+On the repo page: **Code → Codespaces → Create codespace on main**. Everything installs automatically (≈ 3–5 min the first time). Then, in the codespace terminal:
+
+```bash
+python -m pytest tests -q
+streamlit run app/streamlit_app.py --server.enableXsrfProtection false
+```
+
+The app opens in a new tab (port 8501). For the LLM report writer, add `GROQ_API_KEY` and `GROQ_MODEL` once at github.com/settings/codespaces → *Secrets* (grant access to this repo). They become environment variables in every codespace.
+
 ## Team
 
 | Role | Person | Owns |
