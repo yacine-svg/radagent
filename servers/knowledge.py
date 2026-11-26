@@ -25,19 +25,32 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 PUBMED_CACHE = DATA / "cache" / "pubmed.json"
 EUTILS = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils"
-PUBMED_QUERY = "{label} chest radiograph"   # one query per class (warm_cache.py + knowledge agent)
 log = logging.getLogger("knowledge-server")
 
 
 # ------------------------------------------------------------------ PubMed
+_last_call = 0.0
+
+
 def _http_get_json(url: str, params: dict) -> dict:
+    """GET with NCBI's rate limit (3 req/s, 10 with an API key) and one retry on HTTP 429."""
+    global _last_call
     import httpx                                         # imported here: only needed online
     key = os.environ.get("NCBI_API_KEY")
     if key:
         params = {**params, "api_key": key}
-    r = httpx.get(url, params=params, timeout=20)
-    r.raise_for_status()
-    return r.json()
+    gap = 0.11 if key else 0.35
+    for attempt in range(2):
+        wait = _last_call + gap - time.monotonic()
+        if wait > 0:
+            time.sleep(wait)
+        _last_call = time.monotonic()
+        r = httpx.get(url, params=params, timeout=20)
+        if r.status_code == 429 and attempt == 0:
+            time.sleep(1.5)
+            continue
+        r.raise_for_status()
+        return r.json()
 
 
 def _load_cache() -> dict:
@@ -66,8 +79,6 @@ def search_pubmed(query: str, max_results: int = 3, fetch=_http_get_json) -> lis
                     )["esearchresult"]["idlist"]
         refs = []
         if ids:
-            if not os.environ.get("NCBI_API_KEY"):
-                time.sleep(0.34)                          # NCBI limit: 3 requests/second without a key
             res = fetch(f"{EUTILS}/esummary.fcgi", {"db": "pubmed", "id": ",".join(ids), "retmode": "json"})["result"]
             for pmid in ids:
                 item = res.get(pmid, {})
@@ -80,6 +91,16 @@ def search_pubmed(query: str, max_results: int = 3, fetch=_http_get_json) -> lis
     except Exception as e:                                # noqa: BLE001 — never raise
         log.warning("PubMed search failed for %r: %s", query, e)
         return cache.get(query, [])[:max_results]
+
+
+def pubmed_query(condition: str) -> str:
+    """PubMed query for a class: the guideline note's proper title (e.g. 'Pleural effusion'),
+    searched in article titles, about radiographs. Used by warm_cache.py and the knowledge agent."""
+    try:
+        title = _guideline_titles().get(label_slug(str(condition)).lower(), str(condition))
+    except Exception:                                     # noqa: BLE001
+        title = str(condition)
+    return f'"{title}"[Title] AND (radiograph*[Title/Abstract] OR radiography[Title/Abstract] OR x-ray[Title/Abstract])'
 
 
 # ------------------------------------------------------------------ ICD-10
@@ -105,6 +126,15 @@ def icd10_lookup(condition: str) -> dict:
 TOKEN = re.compile(r"[a-z0-9]+")
 STOP = set("a an and are as at be by can for from in into is it its may more of on or than that the "
            "their this to up used when where which with without".split())
+
+
+@lru_cache(maxsize=1)
+def _guideline_titles() -> dict[str, str]:
+    out = {}
+    for path in (DATA / "guidelines").glob("*.md"):
+        first = path.read_text(encoding="utf-8").splitlines()[0]
+        out[path.stem] = first[2:].strip() if first.startswith("# ") else path.stem
+    return out
 
 
 def _tokens(text: str) -> list[str]:
