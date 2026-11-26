@@ -1,0 +1,102 @@
+{
+ "\"Cardiomegaly\"[Title] AND (radiograph*[Title/Abstract] OR radiography[Title/Abstract] OR x-ray[Title/Abstract]) AND hasabstract NOT \"case reports\"[Publication Type] NOT (animals[MeSH Terms] NOT humans[MeSH Terms])": [
+  {
+   "pmid": "31194436",
+   "title": "Cardiomegaly.",
+   "journal": "",
+   "year": "2022"
+  },
+  {
+   "pmid": "38459104",
+   "title": "Segmentation-based cardiomegaly detection based on semi-supervised estimation of cardiothoracic ratio.",
+   "journal": "Sci Rep",
+   "year": "2024"
+  },
+  {
+   "pmid": "35735215",
+   "title": "Combined cardiomegaly and aortic arch calcification predict mortality in hemodialysis patients.",
+   "journal": "Ther Apher Dial",
+   "year": "2023"
+  }
+ ],
+ "\"Pleural effusion\"[Title] AND (radiograph*[Title/Abstract] OR radiography[Title/Abstract] OR x-ray[Title/Abstract]) AND hasabstract NOT \"case reports\"[Publication Type] NOT (animals[MeSH Terms] NOT humans[MeSH Terms])": [
+  {
+   "pmid": "37983698",
+   "title": "Pleural Effusion: Diagnostic Approach in Adults.",
+   "journal": "Am Fam Physician",
+   "year": "2023"
+  },
+  {
+   "pmid": "41314413",
+   "title": "Clinical Approach to a Pleural Effusion.",
+   "journal": "Chest",
+   "year": "2026"
+  },
+  {
+   "pmid": "37750768",
+   "title": "Commercially Available Chest Radiograph AI Tools for Detecting Airspace Disease, Pneumothorax, and Pleural Effusion.",
+   "journal": "Radiology",
+   "year": "2023"
+  }
+ ],
+ "\"Atelectasis\"[Title] AND (radiograph*[Title/Abstract] OR radiography[Title/Abstract] OR x-ray[Title/Abstract]) AND hasabstract NOT \"case reports\"[Publication Type] NOT (animals[MeSH Terms] NOT humans[MeSH Terms])": [
+  {
+   "pmid": "12531090",
+   "title": "Atelectasis: mechanisms, diagnosis and management.",
+   "journal": "Paediatr Respir Rev",
+   "year": "2000"
+  },
+  {
+   "pmid": "6394292",
+   "title": "Atelectasis.",
+   "journal": "Emerg Med Clin North Am",
+   "year": "1983"
+  },
+  {
+   "pmid": "39594939",
+   "title": "Respiratory Physiotherapy Interventions in Paediatric Population with Atelectasis: A Systematic Review.",
+   "journal": "Children (Basel)",
+   "year": "2024"
+  }
+ ],
+ "\"Lung opacity\"[Title] AND (radiograph*[Title/Abstract] OR radiography[Title/Abstract] OR x-ray[Title/Abstract]) AND hasabstract NOT \"case reports\"[Publication Type] NOT (animals[MeSH Terms] NOT humans[MeSH Terms])": [
+  {
+   "pmid": "42959702",
+   "title": "Visualizing a Lung Opacity Behind Pleural Effusion Using Dynamic Chest Radiography.",
+   "journal": "Respirol Case Rep",
+   "year": "2026"
+  },
+  {
+   "pmid": "40198984",
+   "title": "Detection of COVID-19, lung opacity, and viral pneumonia via X-ray using machine learning and deep learning.",
+   "journal": "Comput Biol Med",
+   "year": "2025"
+  },
+  {
+   "pmid": "36766986",
+   "title": "Interpretable Differential Diagnosis of Non-COVID Viral Pneumonia, Lung Opacity and COVID-19 Using Tuned Transfer Learning and Explainable AI.",
+   "journal": "Healthcare (Basel)",
+   "year": "2023"
+  }
+ ],
+ "\"Pulmonary nodule\"[Title] AND (radiograph*[Title/Abstract] OR radiography[Title/Abstract] OR x-ray[Title/Abstract]) AND hasabstract NOT \"case reports\"[Publication Type] NOT (animals[MeSH Terms] NOT humans[MeSH Terms])": [
+  {
+   "pmid": "38985185",
+   "title": "Deep learning in pulmonary nodule detection and segmentation: a systematic review.",
+   "journal": "Eur Radiol",
+   "year": "2025"
+  },
+  {
+   "pmid": "41043896",
+   "title": "Initial Pulmonary Nodule Management for the Generalist: A Brief Review.",
+   "journal": "Mayo Clin Proc",
+   "year": "2025"
+  },
+  {
+   "pmid": "36178994",
+   "title": "Multi-Label Softmax Networks for Pulmonary Nodule Classification Using Unbalanced and Dependent Categories.",
+   "journal": "IEEE Trans Med Imaging",
+   "year": "2023"
+  }
+ ]
+}
