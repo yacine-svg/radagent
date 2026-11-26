@@ -1,4 +1,5 @@
 # Atelectasis
+fr: Atélectasie
 aliases: lung collapse, volume loss, plate-like atelectasis, subsegmental atelectasis
 source: https://radiopaedia.org/articles/atelectasis
 

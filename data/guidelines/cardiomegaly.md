@@ -1,4 +1,5 @@
 # Cardiomegaly
+fr: Cardiomégalie
 aliases: enlarged heart, cardiac enlargement, cardiothoracic ratio, enlarged cardiac silhouette
 source: https://radiopaedia.org/articles/cardiomegaly
 

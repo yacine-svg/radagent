@@ -16,6 +16,7 @@ import time
 
 from contracts import DISCLAIMER, PMID_PATTERN, REPORT_SECTIONS
 from agents.common import event
+from servers.knowledge import french_name
 
 ENTITY_TYPES_FR = {"symptom": "symptôme", "history": "antécédent", "finding": "signe"}
 
@@ -115,10 +116,11 @@ Tu reçois UNIQUEMENT un JSON de preuves produit par d'autres agents. Règles st
 1. Écris en français, en Markdown, avec EXACTEMENT ces 6 titres, dans cet ordre, sans autre titre :
 {chr(10).join(REPORT_SECTIONS)}
 2. N'utilise que les informations du JSON. N'invente aucun constat, chiffre, antécédent ou référence.
-3. Ne présente comme « probable » que les constats avec "above_threshold": true. Donne leurs probabilités combinées.
-4. Si "decision" vaut "abstain", le Résumé dit clairement que le système ne conclut pas et pourquoi.
-5. Chaque élément de "reasons" (conflits, avertissements) apparaît dans « Points de vigilance ».
-6. Cite les références sous la forme exacte « PMID: 12345678 », uniquement avec les PMID fournis dans "references".
+3. Nomme chaque constat avec son nom français exact donné dans "names_fr" (ex. « épanchement pleural », jamais « pleurésie »).
+4. Si "decision" vaut "ok" : le Résumé présente les constats avec "above_threshold": true comme « probables », avec leur probabilité combinée, ou dit qu'aucun constat ne dépasse les seuils. N'écris PAS que le système « ne conclut pas ».
+   Si "decision" vaut "abstain" : le Résumé dit clairement que le système ne conclut pas, et pourquoi (d'après "reasons").
+5. Chaque élément de "reasons" (conflits, avertissements) apparaît dans « Points de vigilance », reformulé en français.
+6. Dans « Références », une ligne par référence fournie dans "references" : « - PMID: 12345678 — titre (journal, année) ». Aucun autre PMID.
 7. La section « ## Avertissement » contient exactement cette phrase : {DISCLAIMER}
 8. Ton prudent : jamais de diagnostic définitif, pas de conseil de traitement."""
 
@@ -146,6 +148,7 @@ def evidence(state: dict) -> dict:
         "guidelines": {lab: by_class[lab]["guideline"] for lab in relevant
                        if lab in by_class and by_class[lab].get("guideline")},
         "references": [r | {"about": lab} for lab in relevant if lab in by_class for r in by_class[lab]["refs"]],
+        "names_fr": {f["label"]: french_name(f["label"]) for f in (fused or {}).get("findings", [])},
     }
 
 
