@@ -100,7 +100,8 @@ def pubmed_query(condition: str) -> str:
         title = _guideline_titles().get(label_slug(str(condition)).lower(), str(condition))
     except Exception:                                     # noqa: BLE001
         title = str(condition)
-    return f'"{title}"[Title] AND (radiograph*[Title/Abstract] OR radiography[Title/Abstract] OR x-ray[Title/Abstract])'
+    return (f'"{title}"[Title] AND (radiograph*[Title/Abstract] OR radiography[Title/Abstract] '
+            f'OR x-ray[Title/Abstract]) AND hasabstract NOT "case reports"[Publication Type]')
 
 
 # ------------------------------------------------------------------ ICD-10
