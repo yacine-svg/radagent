@@ -1,0 +1,26 @@
+{
+  "model": "ResNet-18 (ImageNet pretrained), 5-class multi-label head",
+  "classes": [
+    "Infiltration",
+    "Effusion",
+    "Atelectasis",
+    "Nodule",
+    "Mass"
+  ],
+  "data": {
+    "train_images": 40222,
+    "val_images": 9783,
+    "test_images": 25596,
+    "split": "patient-level; test = NIH official test_list.txt"
+  },
+  "best_epoch": 10,
+  "best_val_mean_auc": 0.8006,
+  "test_mean_auc": 0.754,
+  "thresholds_from_val": {
+    "Infiltration": 0.3432316780090332,
+    "Effusion": 0.5254753828048706,
+    "Atelectasis": 0.4128851890563965,
+    "Nodule": 0.32885265350341797,
+    "Mass": 0.3553273677825928
+  }
+}
